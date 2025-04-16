@@ -1,0 +1,30 @@
+{$lua}
+[ENABLE]
+-- Reuse or create global timer
+timer = timer or createTimer(nil)
+timer.Interval = 100
+timer.OnTimer = function()
+    -- Safely read addresses with error handling
+    local function getAddr(ptr, readFloatVal)
+        local success, addr = pcall(getAddress, ptr)
+        return success and addr and (readFloatVal and readFloat(addr) or addr)
+    end
+
+    -- Read all pointers (true / false = additionally read value toggle)
+    local addr1 = getAddr("[DARKSOULS.exe+00F786D8]+290", true)
+    local addr2 = getAddr("[DARKSOULS.exe+00F786D8]+208", true)
+    local targetAddr = getAddr("[[[[[[DARKSOULS.exe+00F7F8F8]+1C]+24]+110]+34]+B0]+1A0", false)
+
+    -- Calculate and write mass percentage if all reads succeed
+    if addr1 and addr2 and targetAddr then
+        local percent = math.floor(addr1 / addr2 * 1000 + 0.5) / 10
+        writeString(targetAddr, string.format("Mass %.1f%%", percent), true)
+    end
+end
+
+[DISABLE]
+-- Clean up timer
+if timer then
+    timer.destroy()
+    timer = nil
+end
