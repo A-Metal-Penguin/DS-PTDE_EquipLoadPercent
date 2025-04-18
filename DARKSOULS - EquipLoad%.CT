@@ -20,7 +20,7 @@ timer.OnTimer = function()
     -- Read all pointers (true / false = additionally read value toggle)
     local addr1 = getAddr("[DARKSOULS.exe+00F786D8]+290", true)
     local addr2 = getAddr("[DARKSOULS.exe+00F786D8]+208", true)
-    local targetAddr = getAddr("[[[[[[[DARKSOULS.exe+00F78490]+1C]+254]+C0]+40]+8]+B0]+1C4", false)
+    local targetAddr = getAddr("[[DARKSOULS.exe+00F785DC]+11C]+1E38", false)
 
     -- Calculate and write mass percentage if all reads succeed
     if addr1 and addr2 and targetAddr then
@@ -72,15 +72,10 @@ end
           <Unicode>1</Unicode>
           <CodePage>0</CodePage>
           <ZeroTerminate>1</ZeroTerminate>
-          <Address>"DARKSOULS.exe"+00F78490</Address>
+          <Address>"DARKSOULS.exe"+00F785DC</Address>
           <Offsets>
-            <Offset>1C4</Offset>
-            <Offset>B0</Offset>
-            <Offset>8</Offset>
-            <Offset>40</Offset>
-            <Offset>C0</Offset>
-            <Offset>254</Offset>
-            <Offset>1C</Offset>
+            <Offset>1E38</Offset>
+            <Offset>11C</Offset>
           </Offsets>
         </CheatEntry>
       </CheatEntries>
